@@ -1,4 +1,5 @@
 import time
+from threading import Thread
 
 def ask_user():
     start = time.time()
@@ -18,8 +19,17 @@ ask_user()
 complex_math_calculation()
 print(f'Single thread took {time.time() - start} time to complete.')
 
-a = 2.162187099456787
-b = 5.47699761390686 
-c = a + b
-d = 7.640185356140137
-print(c, '          ' , d)
+
+thread1 = Thread(target = ask_user)
+thread2 = Thread(target = complex_math_calculation)
+
+start = time.time()
+
+thread1.start()
+thread2.start()
+
+thread1.join()
+thread2.join()
+
+print(f'3 threads took {time.time() - start} time to complete.')
+
