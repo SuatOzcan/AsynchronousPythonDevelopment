@@ -34,8 +34,8 @@ worker_threads = [Thread(target = increment_counter) for thread in range(10)]
 for thread in worker_threads:
     thread.start()
 
-# for thread in worker_threads:
-#     thread.join()
+for thread in worker_threads:
+    thread.join()
 
 counter_queue.join()
 job_queue.join()
