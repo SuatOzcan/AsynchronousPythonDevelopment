@@ -1,5 +1,6 @@
 import time
-from threading import Thread
+#from multiprocessing import Process
+from concurrent.futures import ProcessPoolExecutor
 
 def ask_user():
     start = time.time()
@@ -11,7 +12,7 @@ def ask_user():
 def complex_math_calculation():
     start = time.time()
     print('Started calculating...')
-    [x**2 for x in range(20000001)]
+    [x**2 for x in range(10000001)]
     print(f'complex_math_calculation function took {time.time() - start} time to complete.')
 
 # start = time.time()
@@ -19,16 +20,19 @@ def complex_math_calculation():
 # complex_math_calculation()
 # print(f'Single thread took {time.time() - start} time to complete.')
 
+# process = Process(target=complex_math_calculation)
+# process.start()
 
-thread1 = Thread(target = ask_user)
-thread2 = Thread(target = complex_math_calculation)
+# start = time.time()
+
+# ask_user()
+
+# process.join()
 
 start = time.time()
 
-thread1.start()
-thread2.start()
-thread1.join()
-thread2.join()
+with ProcessPoolExecutor(max_workers = 2) as pool:
+    pool.submit(complex_math_calculation)
+    pool.submit(complex_math_calculation)
 
-print(f'3 threads took {time.time() - start} time to complete.')
-
+print(f'Total time of two processes: {time.time() - start}')

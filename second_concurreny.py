@@ -1,5 +1,5 @@
 import time
-from threading import Thread
+from concurrent.futures import ThreadPoolExecutor
 
 def ask_user():
     start = time.time()
@@ -14,21 +14,10 @@ def complex_math_calculation():
     [x**2 for x in range(20000001)]
     print(f'complex_math_calculation function took {time.time() - start} time to complete.')
 
-# start = time.time()
-# ask_user()
-# complex_math_calculation()
-# print(f'Single thread took {time.time() - start} time to complete.')
+with ThreadPoolExecutor(max_workers=2) as pool: #Create 2 threads in this collectionof threads.
+    pass
+    pool.submit(complex_math_calculation)
+    pool.submit(ask_user)
 
 
-thread1 = Thread(target = ask_user)
-thread2 = Thread(target = complex_math_calculation)
-
-start = time.time()
-
-thread1.start()
-thread2.start()
-thread1.join()
-thread2.join()
-
-print(f'3 threads took {time.time() - start} time to complete.')
-
+# pool.shutdown() If ThreadPoolExecutor is not used with a "with", it is closed this way.    
