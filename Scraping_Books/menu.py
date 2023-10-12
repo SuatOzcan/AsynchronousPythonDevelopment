@@ -5,6 +5,7 @@ USER_CHOICE = '''Please enter one of the following:
 -'b' to look at 5-star books.
 -'c' to look at the cheapest books
 -'n' to just get the next avaliable book in the catalog.
+-'q' to quit the application.
 '''
 
 def print_best_books():

@@ -2,11 +2,15 @@ import aiohttp
 import asyncio  
 import time
 
+#import async_timeout
+
 async def fetch_page(session, url):
     page_start = time.time()
     # async with aiohttp.ClientSession() as session:
         #Methods with an async keyword may have a yield method in __enter__, __exit__, or both methods.
         #New methods are __aenter__ and __aexit__.
+        
+    #async with async_timeout.timeout(10): #Raises a Timeouterror after the given time in seconds.
     async with session.get(url) as response:
         print(f'Page took {time.time() - page_start} seconds to complete.')
         return response.status
